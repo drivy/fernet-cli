@@ -35,7 +35,7 @@ def init():
         if not re.match(r"^FERNET__", raw_key):
             continue
         key = re.sub(r"^FERNET__", "", raw_key)
-        print(f'export {key}="{decrypt(value)}"')
+        print(f"export {key}='{decrypt(value)}'")
 
 
 def usage():
