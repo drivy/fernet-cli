@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
+import base64
 import os
 import re
 import sys
-import base64
+
 from cryptography.fernet import Fernet
 
 

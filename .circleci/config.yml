@@ -1,0 +1,42 @@
+version: 2.1
+jobs:
+  lint-python:
+    docker:
+      - image: cimg/python:3.14
+    working_directory: /tmp/build
+    steps:
+      - checkout
+      - run:
+          name: Install uv
+          command: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run:
+          name: Install python dependencies
+          command: uv sync
+      - run:
+          name: Validate PEP8 (ruff)
+          command: uv run ruff check
+      - run:
+          name: Validate Style (ruff)
+          command: uv run ruff format --check .
+
+  test-python:
+    docker:
+      - image: cimg/python:3.14
+    working_directory: /tmp/build
+    steps:
+      - checkout
+      - run:
+          name: Install uv
+          command: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run:
+          name: Install python dependencies
+          command: uv sync
+      - run:
+          name: Run tests
+          command: uv run pytest
+
+workflows:
+  build-and-test:
+    jobs:
+      - lint-python
+      - test-python

@@ -1,14 +1,69 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "fernet-cli"
+version = "0.0.3"
+description = "A CLI to manipulate fernet encrypted secrets"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Getaround" },
+]
+requires-python = ">=3.12"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+]
+dependencies = [
+    "cryptography",
+]
 
-[tool.black]
+[project.urls]
+Homepage = "https://github.com/drivy/fernet-cli"
+"Bug Tracker" = "https://github.com/drivy/fernet-cli/issues"
+
+[project.scripts]
+fernet = "fernet:run"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.22,<0.16",
+]
+test = [
+    "pytest==9.1.1",
+]
+
+[tool.uv]
+default-groups = "all"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
 line-length = 120
+target-version = "py312"
 
-[tool.pylint.Master]
-max-line-length = 120
-disable = "W0105,C0114,C0115,C0116,R1732"
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN", # Types annotations
+    "D" # Docstrings
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"src/fernet/__init__.py" = [
+  "T201", # print (this is a CLI, printing is its job)
+  "PLR2004", # magic-value-comparison (argv length checks)
+]
+"test/**/*.py" = [
+  "S101", # assert
+  "PLR2004", # magic-value-comparison
+  "SLF001", # private member access
+  "S106", # possible hardcoded password
+]

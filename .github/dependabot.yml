@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    open-pull-requests-limit: 99
+    schedule:
+      interval: "weekly"
+      time: "20:00"
+      timezone: "Europe/Paris"
+      day: "friday"
