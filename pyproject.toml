@@ -33,7 +33,7 @@ fernet = "fernet:run"
 
 [dependency-groups]
 dev = [
-    "ruff>=0.15.22,<0.16",
+    "ruff>=0.15.22,<0.17",
 ]
 test = [
     "pytest==9.1.1",
